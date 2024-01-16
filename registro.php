@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurante</title>
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/style3.css">
     <link rel="stylesheet" href="./css/error.css">
 </head>
 <body>
 <section>
         <div class="contenedor2">
             <div class="formulario">
-                <div class="logo">
+                <div class="logo2">
                     <img src="./images/logo.png" alt="">
                 </div>
                 <!-- Div del Formulario -->
-                <div class="form">
+                <div class="form2">
                     <form action="./php/registrar.php" method="post" onsubmit="return validaFormulario()">
                         <!-- Div login usuario -->
                         <div class="input-contenedor">
@@ -42,10 +42,9 @@
                         <br>
                         <!-- Boton iniciar sesión -->
                         <button type="submit" name="registro" value="registro">Registrarse</button>
-                        <br>
-                        <br>
-                        <button><a href="registro.php">Iniciar Sesión</a></button>
                     </form>
+                    <br>
+                    <a href="index.php"><button type="button">Iniciar Sesión</button></a>
                 </div>
             </div>
         </div>

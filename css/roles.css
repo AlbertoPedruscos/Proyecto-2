@@ -1,0 +1,74 @@
+body{
+    font-family: 'Poppins', sans-serif;
+    background-color: orangered;
+    background-image: url(../images/fondo.jpg);
+    background-size: cover;
+    overflow-x: hidden;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+div{
+    border-radius: 5px;
+    text-align: center;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #f8f8f8;
+    box-shadow: 0 0 20px black;
+}
+.btn-moderno1 {
+    display: inline-block;
+    padding: 15px 30px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #2ecc71;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-moderno1:hover {
+    background-color: #27ae60;
+}
+.btn-moderno2 {
+    display: inline-block;
+    padding: 15px 30px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #cc822e;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-moderno2:hover {
+    background-color: #ae7327;
+}
+.btn-moderno3 {
+    display: inline-block;
+    padding: 15px 30px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #cc2ec4;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-moderno3:hover {
+    background-color: #ae27a9;
+}

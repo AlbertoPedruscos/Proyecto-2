@@ -1,4 +1,5 @@
 <?php
+session_start();
 if (isset($_SESSION["user"])) {
     header('Location: ./home.php');
     exit();
@@ -40,9 +41,10 @@ try {
             $stmtSelect = mysqli_prepare($conn, $sql2);
             mysqli_stmt_bind_param($stmtSelect, "ssss", $user, $nombre, $hashedPwd, $tel);
             mysqli_stmt_execute($stmtSelect);
-            $_SESSION['id_user'] = $login['id_user'];
+            $lastInsertId = mysqli_insert_id($conn);
+            $_SESSION['id_user'] = $lastInsertId;
             $_SESSION['user'] = $user;
-            header('Location: ../php/home.php');
+            header('Location: ../php/escogerRol.php');
 
         }
     }

@@ -22,9 +22,25 @@ if (!isset($_POST['login'])) {
         $login = mysqli_fetch_assoc($result);
         $enc_pwd = $login['contra'];
         if (password_verify($pwd, $enc_pwd)) {
+            $rol=$login['rol'];
             $_SESSION['id_user'] = $login['id_user'];
             $_SESSION['user'] = $user;
-            header('Location: ./php/home.php');
+            if ($rol=='2'){
+                header('Location: ../php/home.php');
+                exit();
+            }
+            elseif ($rol=='3'){
+                header('Location: ../php/home.php');
+                exit();
+            }
+            elseif ($rol=='4'){
+                header('Location: ../php/home.php');
+                exit();
+            }
+            elseif ($rol=='1'){
+                header('Location: ../php/home.php');
+                exit();
+            }
         } else {
             header('Location: ../index.php?exist=0');
         }

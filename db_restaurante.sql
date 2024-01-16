@@ -89,6 +89,7 @@ CREATE TABLE tbl_historial (
 INSERT INTO tbl_roles VALUES (1,'admin');
 INSERT INTO tbl_roles VALUES (2,'camarero');
 INSERT INTO tbl_roles VALUES (3,'chef');
+INSERT INTO tbl_roles VALUES (4,'mantenimiento');
 /*_________________________________ Estado _________________________________*/
 INSERT INTO tbl_estado VALUES (1,'Ocupado');
 INSERT INTO tbl_estado VALUES (2,'Libre');

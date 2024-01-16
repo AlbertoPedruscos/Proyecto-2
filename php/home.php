@@ -26,32 +26,10 @@ $user = $_SESSION['user'];
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <!-------Styles----------->
   <title>Mapa de Mesas - Restaurante</title>
-  <link rel="stylesheet" href="../css/style_visual_restaurante.css">
+  <link rel="stylesheet" href="../css/style_visual_restaurante2.css">
 </head>
 
 <body>
-
-  <?php
-  // Este script se ejecutará cuando se cargue la página
-  echo
-    "<script>
-    // Este script se ejecutará cuando se cargue la página
-    window.onload = function() {
-        // Verificar si ya se ha mostrado el mensaje de bienvenida
-        if (!localStorage.getItem('bienvenidaMostrada')) {
-            Swal.fire({
-                imageUrl: '../images/logo.png',
-                imageWidth: 400,
-                imageHeight: 200,
-                confirmButtonText: 'Bienvenido $user',
-                confirmButtonColor: 'grey'
-            });
-            // Marcar que se ha mostrado el mensaje de bienvenida
-            localStorage.setItem('bienvenidaMostrada', 'true');
-            }
-        };
-    </script>"
-    ?>
 
   <div class="All">
     <!-- Bienvenida usuario -->
@@ -63,7 +41,7 @@ $user = $_SESSION['user'];
       </div>
       <img id="logo" src="../images/logo.png" alt="">
       <?php
-      echo "Bienvenido " . $_SESSION['user'];
+        echo "Bienvenido " . $_SESSION['user'];
       ?>
       <button class="historico" onclick="window.location = './historico.php'">Historial</button>
     </h1>
@@ -137,7 +115,7 @@ $user = $_SESSION['user'];
           </select>
         </div>
         <div class="dropdown">
-          <button type="submit" class="aplicar_filtros">Aplicar filtros</button>
+          <button type="submit" class="aplicar_filtros">Aplicar</button>
         </div>
       </form>
     </div>

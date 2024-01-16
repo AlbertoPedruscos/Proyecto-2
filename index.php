@@ -12,7 +12,7 @@ if (isset($_SESSION["user"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="https://kit.fontawesome.com/9b3003b0ac.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/style3.css">
     <link rel="stylesheet" href="./css/error.css">
     <title>Restaurante</title>
 </head>
@@ -43,10 +43,9 @@ if (isset($_SESSION["user"])) {
                         <br>
                         <!-- Boton iniciar sesión -->
                         <button type="submit" name="login" value="Login">Iniciar Sesión</button>
-                        <br>
-                        <br>
-                        <button><a href="registro.php">Registrarse</a></button>
                     </form>
+                    <br>
+                    <a href="registro.php"><button>Registrarse</button></a>
                 </div>
             </div>
         </div>
