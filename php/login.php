@@ -30,15 +30,15 @@ if (!isset($_POST['login'])) {
                 exit();
             }
             elseif ($rol=='3'){
-                header('Location: ../php/home.php');
+                header('Location: ../php/homeCh.php');
                 exit();
             }
             elseif ($rol=='4'){
-                header('Location: ../php/home.php');
+                header('Location: ../php/homeMa.php');
                 exit();
             }
             elseif ($rol=='1'){
-                header('Location: ../php/home.php');
+                header('Location: ../php/homeAd.php');
                 exit();
             }
         } else {
