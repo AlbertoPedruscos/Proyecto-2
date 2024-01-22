@@ -1,9 +1,5 @@
 <?php
 session_start();
-if (isset($_SESSION["user"])) {
-    header('Location: ./home.php');
-    exit();
-}
 include './connection.php';
 try {
     if (!isset($_POST['registro'])) {
@@ -20,7 +16,7 @@ try {
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
 
-        if (mysqli_num_rows($result) == 1) {
+        if (mysqli_num_rows($result) > 0) {
             header('Location: ../registro.php?exist=0');
         } else {
             // Use password_hash to securely hash the password

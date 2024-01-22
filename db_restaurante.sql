@@ -32,7 +32,8 @@ CREATE TABLE tbl_tipos_salas(
 CREATE TABLE tbl_salas(
     id_sala INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     id_tipos_sala INT NOT NULL,
-    nombre_sala VARCHAR(20) NOT NULL
+    nombre_sala VARCHAR(20) NOT NULL,
+    habilitado BINARY(1) NOT NULL
 );
 /* Tabla de mesas */
 CREATE TABLE tbl_mesas(
@@ -88,29 +89,29 @@ CREATE TABLE tbl_historial (
 /*_________________________________ Roles _________________________________*/
 INSERT INTO tbl_roles VALUES (1,'admin');
 INSERT INTO tbl_roles VALUES (2,'camarero');
-INSERT INTO tbl_roles VALUES (3,'chef');
-INSERT INTO tbl_roles VALUES (4,'mantenimiento');
+INSERT INTO tbl_roles VALUES (3,'mantenimiento');
 /*_________________________________ Estado _________________________________*/
 INSERT INTO tbl_estado VALUES (1,'Ocupado');
 INSERT INTO tbl_estado VALUES (2,'Libre');
 INSERT INTO tbl_estado VALUES (3,'Mantenimiento');
+INSERT INTO tbl_estado VALUES (4,'Reservada');
 /*_________________________________ Tipos de sala _________________________________*/
 INSERT INTO tbl_tipos_salas VALUES (1,'Terraza',24);
 INSERT INTO tbl_tipos_salas VALUES (2,'Comedor',72);
 INSERT INTO tbl_tipos_salas VALUES (3,'Sala_privada',16);
 /*_________________________________ Salas _________________________________*/
 /* Terraza */
-INSERT INTO tbl_salas VALUES (1,1,'1');
-INSERT INTO tbl_salas VALUES (2,1,'2');
-INSERT INTO tbl_salas VALUES (3,1,'3');
+INSERT INTO tbl_salas VALUES (1,1,'1',1);
+INSERT INTO tbl_salas VALUES (2,1,'2',1);
+INSERT INTO tbl_salas VALUES (3,1,'3',1);
 /* Comedor */
-INSERT INTO tbl_salas VALUES (4,2,'1');
-INSERT INTO tbl_salas VALUES (5,2,'2');
+INSERT INTO tbl_salas VALUES (4,2,'1',1);
+INSERT INTO tbl_salas VALUES (5,2,'2',1);
 /* Sala privada */
-INSERT INTO tbl_salas VALUES (6,3,'1');
-INSERT INTO tbl_salas VALUES (7,3,'2');
-INSERT INTO tbl_salas VALUES (8,3,'3');
-INSERT INTO tbl_salas VALUES (9,3,'4');
+INSERT INTO tbl_salas VALUES (6,3,'1',1);
+INSERT INTO tbl_salas VALUES (7,3,'2',1);
+INSERT INTO tbl_salas VALUES (8,3,'3',1);
+INSERT INTO tbl_salas VALUES (9,3,'4',1);
 /* _________________________________ Usuarios _________________________________*/
 INSERT INTO tbl_users VALUES (1,'Admin', 'Admin', '$2y$10$eQV9jOJPHQq9X/gY.LUCb.LxlmQaSwyHLOT88AEyQ/55UggDpEbd6', 10000, 123456789, 1);
 INSERT INTO tbl_users VALUES (2,'Alberto', 'Hank', '$2y$10$AaLco/MRdphg960EbWCmkO40QRcBTrOlcVOlmT3sxpxaBoOKp.E1q', 2000, 690621200, 2);

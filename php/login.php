@@ -1,10 +1,5 @@
 <?php
 session_start();
-
-if (isset($_SESSION["user"])) {
-    header('Location: ./home.php');
-    exit();
-}
 include './connection.php';
 try {
 if (!isset($_POST['login'])) {
@@ -30,10 +25,6 @@ if (!isset($_POST['login'])) {
                 exit();
             }
             elseif ($rol=='3'){
-                header('Location: ../php/homeCh.php');
-                exit();
-            }
-            elseif ($rol=='4'){
                 header('Location: ../php/homeMa.php');
                 exit();
             }

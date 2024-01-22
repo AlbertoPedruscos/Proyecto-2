@@ -15,10 +15,6 @@ if ($rol==2){
     exit();
 }
 elseif($rol==3){
-    header('Location: ../php/homeCh.php');
-    exit();
-}
-elseif($rol==4){
     header('Location: ../php/homeMa.php');
     exit();
 }

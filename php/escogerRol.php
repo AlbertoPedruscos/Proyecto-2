@@ -4,7 +4,6 @@ if (!isset($_SESSION["user"])) {
     header('Location: ../index.php');
     exit();
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,9 +19,8 @@ if (!isset($_SESSION["user"])) {
             <h1>Escoja su especialidad</h1>
             <br>
             <br>
-            <button value="3" name="rol" class="btn-moderno1">Cocinero</button>
             <button value="2" name="rol" class="btn-moderno2">Camarero</button>
-            <button value="4" name="rol" class="btn-moderno3">Mantenimiento</button>
+            <button value="3" name="rol" class="btn-moderno3">Mantenimiento</button>
         </form>
         <br>
     </div>

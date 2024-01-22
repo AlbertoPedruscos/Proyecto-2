@@ -1,0 +1,216 @@
+body {
+    margin: 0px;
+    font-family: 'Poppins', sans-serif;
+    background-color: orangered;
+    background-image: url(../images/fondo.jpg);
+    background-size: cover;
+}
+
+/* Estilo básico para la tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+/* Estilo para las celdas del encabezado */
+th {
+    color: white;
+    background-color: rgb(255, 25, 64);
+    padding: 8px;
+}
+
+/* Estilo para todas las celdas */
+td, th {
+    border: 1px solid #d7c0c0;
+    text-align: left;
+    padding: 8px;
+}
+
+/* Cambia el color de fondo de las filas alternas (opcional) */
+tr {
+    background-color: white;
+}
+
+/* Hover sobre las filas (opcional) */
+tr:hover {
+    background-color: lavenderblush;
+}
+
+label {
+    color: white;
+}
+
+select {
+    cursor: pointer;
+    background-color: rgb(255, 161, 37);
+    color: white;
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 4px;
+    display: inline-block;
+    box-sizing: border-box;
+    margin-right: 20px;
+    border: none;
+    outline: none;
+}
+
+/* Estilo para las opciones del select */
+select option {
+    padding: 10px;
+}
+
+/* Estilo para el contenedor del select (opcional) */
+.select-container {
+    margin: 20px;
+}
+
+.nav {
+    padding: 10px;
+    padding-left: 30px;
+    font-size: 30px;
+    height: 40px;
+    width: 110%;
+    position: fixed;
+    background-image: url(../images/madera.jpg);
+    background-color: brown;
+    color: white;
+}
+
+.buN {
+    cursor: pointer;
+    padding-left: 30px;
+    font-size: 20px;
+    background-color: transparent;
+    color: white;
+    border: none;
+}
+
+#sal, #mes, #idU, #idS, #id_mesa, #silo {
+    display: none;
+}
+
+.boton1, .boton2, .boton3 {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.boton1 {
+    background-color: purple;
+    color: #fff;
+    border: 2px solid #007bff;
+}
+
+.boton2 {
+    background-color: rgb(0, 128, 119);
+    color: #fff;
+    border: 2px solid #00ff73;
+}
+
+.boton3 {
+    background-color: rgb(128, 92, 0);
+    color: #fff;
+    border: 2px solid #00ff73;
+}
+input[type='text'] {
+    margin-top: 5px;
+    padding: 8px;
+    border-radius: 6px;
+    box-sizing: border-box;
+    width: 170px;
+}
+.boton1:hover {
+    background-color: rgb(55, 0, 55);
+    border-color: #0056b3;
+}
+
+.boton2:hover {
+    background-color: rgb(1, 56, 53);
+    border: 2px solid #017b38;
+}
+
+.boton3:hover {
+    background-color: rgb(225, 162, 2);
+    border: 2px solid #02873e;
+}
+
+.fil {
+    padding: 10px;
+    background-color: rgb(255, 147, 40);
+}
+
+.formula {
+    position: fixed;
+    display: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 5px;
+    color: white;
+    padding: 25px;
+    background-color: rgb(255, 200, 0);
+    border: solid black;
+}
+
+
+/* Estilo para el campo de búsqueda */
+input[type="search"] {
+    width: 300px;
+    padding: 4px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+}
+
+/* Estilo para resaltar el campo de búsqueda al enfocarlo */
+input[type="search"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.tab {
+    display: none;
+}
+
+.formulario input[type='text'],
+.formulario select {
+    margin-top: 2px;
+    padding: 8px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    width: 250px;
+}
+
+.envio, .volver {
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.envio {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+}
+
+.volver {
+    background-color: #ff0101;
+    color: white;
+    border: none;
+}
+
+.envio:hover {
+    background-color: #45a049;
+}
+
+.volver:hover {
+    background-color: #9f0505;
+}
