@@ -43,7 +43,7 @@ CREATE TABLE tbl_mesas(
     id_estado_mesa INT NOT NULL,
     id_camarero INT,
     id_sala_mesa INT NOT NULL,
-    hora TIME
+    hora DATE
 );
 /* Tabla de estado para la mesa */
 CREATE TABLE tbl_estado(
