@@ -1,28 +1,42 @@
 <?php
 include './connection.php';
 
-$id = mysqli_real_escape_string($conn, $_POST['id']);
+$id = $_POST['id'];
 
-$stmt = mysqli_stmt_init($conn);
-$sqlupdate = "UPDATE tbl_mesas SET id_camarero = NULL WHERE id_camarero = ?";
-mysqli_stmt_prepare($stmt, $sqlupdate);
-mysqli_stmt_bind_param($stmt, "i", $id);
-mysqli_stmt_execute($stmt);
-mysqli_stmt_close($stmt);
+try {
+    // Crear una instancia de PDO
+    $conn = new PDO("mysql:host=$dbserver;dbname=$dbbasedatos", $dbuser, $dbpwd);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-$stmt2 = mysqli_stmt_init($conn);
-$sqldelete = "DELETE FROM tbl_historial WHERE id_usuario = ?";
-mysqli_stmt_prepare($stmt2, $sqldelete);
-mysqli_stmt_bind_param($stmt2, "i", $id);
-mysqli_stmt_execute($stmt2);
-mysqli_stmt_close($stmt2);
+    // Iniciar transacción PDO
+    $conn->beginTransaction();
 
-$stmt3 = mysqli_stmt_init($conn);
-$sqldelete2 = "DELETE FROM tbl_users WHERE id_user = ?";
-mysqli_stmt_prepare($stmt3, $sqldelete2);
-mysqli_stmt_bind_param($stmt3, "i", $id);
-mysqli_stmt_execute($stmt3);
-mysqli_stmt_close($stmt3);
-mysqli_close($conn);
+    // Preparar y ejecutar la primera consulta SQL
+    $sqlupdate = "UPDATE tbl_mesas SET id_camarero = NULL WHERE id_camarero = ?";
+    $stmt1 = $conn->prepare($sqlupdate);
+    $stmt1->bindParam(1, $id, PDO::PARAM_INT);
+    $stmt1->execute();
 
+    // Preparar y ejecutar la segunda consulta SQL
+    $sqldelete = "DELETE FROM tbl_historial WHERE id_usuario = ?";
+    $stmt2 = $conn->prepare($sqldelete);
+    $stmt2->bindParam(1, $id, PDO::PARAM_INT);
+    $stmt2->execute();
+
+    // Preparar y ejecutar la tercera consulta SQL
+    $sqldelete2 = "DELETE FROM tbl_users WHERE id_user = ?";
+    $stmt3 = $conn->prepare($sqldelete2);
+    $stmt3->bindParam(1, $id, PDO::PARAM_INT);
+    $stmt3->execute();
+
+    // Confirmar la transacción PDO
+    $conn->commit();
+
+    // Cerrar la conexión PDO
+    $conn = null;
+
+} catch (PDOException $e) {
+    // Manejar errores de PDO y realizar un rollback en caso de error
+    echo "Error: " . $e->getMessage() . "<br>";
+}
 ?>

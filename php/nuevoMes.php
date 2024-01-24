@@ -2,22 +2,29 @@
 session_start();
 include("./connection.php");
 
-$nombre_mesa = mysqli_real_escape_string($conn, $_POST['nombre_mesa']);
-$sillas = mysqli_real_escape_string($conn, $_POST['sillas']);
-$id_estado_mesa = mysqli_real_escape_string($conn, $_POST['id_estado_mesa']);
-$id_sala_mesa = mysqli_real_escape_string($conn, $_POST['id_sala_mesa']);
+$nombre_mesa = $_POST['nombre_mesa'];
+$sillas = $_POST['sillas'];
+$id_estado_mesa = $_POST['id_estado_mesa'];
+$id_sala_mesa = $_POST['id_sala_mesa'];
 
-$stmt = mysqli_stmt_init($conn);
-$sqlinsert = "INSERT INTO tbl_mesas (nombre_mesa, sillas, id_estado_mesa, id_sala_mesa) VALUES (?, ?, ?, ?)";
+try {
+    // Preparar y ejecutar la consulta SQL con la conexión existente
+    $sqlinsert = "INSERT INTO tbl_mesas (id_mesa, nombre_mesa, sillas, id_estado_mesa, id_sala_mesa) VALUES (NULL, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($sqlinsert);
+    $stmt->bindParam(1, $nombre_mesa, PDO::PARAM_STR);
+    $stmt->bindParam(2, $sillas, PDO::PARAM_INT);
+    $stmt->bindParam(3, $id_estado_mesa, PDO::PARAM_INT);
+    $stmt->bindParam(4, $id_sala_mesa, PDO::PARAM_INT);
+    $stmt->execute();
 
-mysqli_stmt_prepare($stmt, $sqlinsert);
-mysqli_stmt_bind_param($stmt, "siii", $nombre_mesa, $sillas, $id_estado_mesa, $id_sala_mesa);
-mysqli_stmt_execute($stmt);
+    $_SESSION['crear'] = 'si';
 
-$_SESSION['actualizar'] = 'si';
-mysqli_stmt_close($stmt);
-mysqli_close($conn);
+} catch (PDOException $e) {
+    // Manejar errores de PDO
+    echo "Error: " . $e->getMessage();
+}
 
+// No es necesario cerrar la conexión PDO aquí, ya que la conexión es mantenida por el script connection.php
 header('Location: ../php/homeAd.php');
 exit();
 ?>

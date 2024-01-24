@@ -2,20 +2,33 @@
 include './connection.php';
 
 // Recibe la variable enviada por AJAX
-$id = mysqli_real_escape_string($conn, $_POST['idSal']);
+$id = $_POST['idSal'];
 
-$stmt = mysqli_stmt_init($conn);
-$sqlDel =  "DELETE FROM tbl_mesas WHERE id_sala_mesa = ?";
-mysqli_stmt_prepare($stmt, $sqlDel);
-mysqli_stmt_bind_param($stmt, "i", $id);
-mysqli_stmt_execute($stmt);
-mysqli_stmt_close($stmt);
+try {
+    // Iniciar transacción PDO
+    $conn->beginTransaction();
 
-$stmt2 = mysqli_stmt_init($conn);
-$sqlDel2 =  "DELETE FROM tbl_salas WHERE id_sala = ?";
-mysqli_stmt_prepare($stmt2, $sqlDel2);
-mysqli_stmt_bind_param($stmt2, "i", $id);
-mysqli_stmt_execute($stmt2);
-mysqli_stmt_close($stmt2);
-mysqli_close($conn);
+    // Preparar y ejecutar la primera consulta SQL
+    $sqlDel1 = "DELETE FROM tbl_mesas WHERE id_sala_mesa = ?";
+    $stmt1 = $conn->prepare($sqlDel1);
+    $stmt1->bindParam(1, $id, PDO::PARAM_INT);
+    $stmt1->execute();
+
+    // Preparar y ejecutar la segunda consulta SQL
+    $sqlDel2 = "DELETE FROM tbl_salas WHERE id_sala = ?";
+    $stmt2 = $conn->prepare($sqlDel2);
+    $stmt2->bindParam(1, $id, PDO::PARAM_INT);
+    $stmt2->execute();
+
+    // Confirmar la transacción PDO
+    $conn->commit();
+
+    // Cerrar la conexión PDO
+    $conn = null;
+
+} catch (PDOException $e) {
+    // Manejar errores de PDO y realizar un rollback en caso de error
+    echo "Error: " . $e->getMessage() . "<br>";
+}
+
 ?>

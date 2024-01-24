@@ -86,6 +86,7 @@ select option {
     border: none;
 }
 
+
 #sal, #mes, #idU, #idS, #id_mesa, #silo {
     display: none;
 }
@@ -201,6 +202,15 @@ input[type="search"]:focus {
     border: none;
 }
 
+.gold{
+    background-color: #ff0101;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 .volver {
     background-color: #ff0101;
     color: white;
@@ -213,4 +223,10 @@ input[type="search"]:focus {
 
 .volver:hover {
     background-color: #9f0505;
+}
+.gold:hover {
+    background-color: #9f0505;
+}
+.error{
+    border: solid red 2px;
 }

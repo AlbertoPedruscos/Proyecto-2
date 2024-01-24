@@ -3,10 +3,10 @@ session_start();
 include("./connection.php");
 
 // Obtener datos del formulario
-$id = mysqli_real_escape_string($conn, $_POST['id']);
-$salaS = mysqli_real_escape_string($conn, $_POST['salaS']);
-$nom = mysqli_real_escape_string($conn, $_POST['nom']);
-$estado = mysqli_real_escape_string($conn, $_POST['estado']);
+$id = $_POST['id'];
+$salaS = $_POST['salaS'];
+$nom = $_POST['nom'];
+$estado = $_POST['estado'];
 
 // Dividir la cadena en dos partes
 $partes = explode(" ", $salaS);
@@ -24,19 +24,30 @@ if ($nombre == 'Terraza') {
     $id_tipo_sala = 3;
 }
 
-// Preparar y ejecutar la consulta SQL
-$stmt = mysqli_stmt_init($conn);
-$sqlupdate = "UPDATE tbl_salas SET nombre_sala = ?, habilitado = ?, id_tipos_sala = ? WHERE id_sala = ?";
-mysqli_stmt_prepare($stmt, $sqlupdate);
-mysqli_stmt_bind_param($stmt, "siii", $numero, $estado, $id_tipo_sala, $id);
-mysqli_stmt_execute($stmt);
+try {
+    // Preparar y ejecutar la consulta SQL
+    $sqlupdate = "UPDATE tbl_salas SET nombre_sala = ?, habilitado = ?, id_tipos_sala = ? WHERE id_sala = ?";
+    $stmt = $conn->prepare($sqlupdate);
+    $stmt->bindParam(1, $numero, PDO::PARAM_STR);
+    $stmt->bindParam(2, $estado, PDO::PARAM_INT);
+    $stmt->bindParam(3, $id_tipo_sala, PDO::PARAM_INT);
+    $stmt->bindParam(4, $id, PDO::PARAM_INT);
+    $stmt->execute();
 
-// Manejar resultados y cerrar recursos
-$_SESSION['crear'] = 'si';
-mysqli_stmt_close($stmt);
-mysqli_close($conn);
+    // Manejar resultados
+    $_SESSION['crear'] = 'si';
 
-// Redirigir a la página principal
-header('Location: ../php/homeAd.php');
-exit();
+    // Cerrar la conexión PDO
+    $conn = null;
+
+    // Redirigir a la página principal
+    header('Location: ../php/homeAd.php');
+    exit();
+} catch (PDOException $e) {
+    // Manejar errores de PDO
+    echo "Error: " . $e->getMessage() . "<br>";
+    $_SESSION['crear'] = 'no';
+    header('Location: ../php/homeAd.php');
+    exit();
+}
 ?>

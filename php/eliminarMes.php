@@ -2,13 +2,21 @@
 include './connection.php';
 
 // Recibe la variable enviada por AJAX
-$id = mysqli_real_escape_string($conn, $_POST['idMes']);
+$id = $_POST['idMes'];
 
-$stmt = mysqli_stmt_init($conn);
-$sqlDel =  "DELETE FROM tbl_mesas WHERE id_mesa = ?";
-mysqli_stmt_prepare($stmt, $sqlDel);
-mysqli_stmt_bind_param($stmt, "i", $id);
-mysqli_stmt_execute($stmt);
-mysqli_stmt_close($stmt);
-mysqli_close($conn);
+try {
+    // Preparar y ejecutar la consulta SQL
+    $sqlDel = "DELETE FROM tbl_mesas WHERE id_mesa = ?";
+    $stmt = $conn->prepare($sqlDel);
+    $stmt->bindParam(1, $id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    // Cerrar la conexión PDO
+    $conn = null;
+
+} catch (PDOException $e) {
+    // Manejar errores de PDO
+    echo "Error: " . $e->getMessage() . "<br>";
+}
+
 ?>

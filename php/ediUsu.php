@@ -2,21 +2,37 @@
 session_start();
 include("./connection.php");
 
-$id = mysqli_real_escape_string($conn,$nombre=$_POST['id']);
-$nombre = mysqli_real_escape_string($conn,$nombre=$_POST['usu']);
-$numero = mysqli_real_escape_string($conn,$_POST['nom']);
-$correo = mysqli_real_escape_string($conn,$_POST['sal']);
-$direccion = mysqli_real_escape_string($conn,$_POST['tel']);
-$rol = mysqli_real_escape_string($conn,$_POST['rol']);
+$id = $_POST['id'];
+$nombre = $_POST['usu'];
+$numero = $_POST['nom'];
+$correo = $_POST['sal'];
+$direccion = $_POST['tel'];
+$rol = $_POST['rol'];
 
-$stmt = mysqli_stmt_init($conn);
-$sqlinsert =  "UPDATE tbl_users SET user = ?, nombre = ?, salario = ?, telefono = ?, rol = ? WHERE id_user=?";
-mysqli_stmt_prepare($stmt, $sqlinsert);
-mysqli_stmt_bind_param($stmt, "ssiiii", $nombre, $numero, $correo, $direccion, $rol, $id);
-mysqli_stmt_execute($stmt);
-$_SESSION['crear']='si';
-mysqli_stmt_close($stmt);
-mysqli_close($conn);
-header('Location: ../php/homeAd.php');
-exit();
+try {
+        // Actualizar los datos del usuario
+        $sqlUpdateUser = "UPDATE tbl_users SET user = ?, nombre = ?, salario = ?, telefono = ?, rol = ? WHERE id_user=?";
+        $stmtUpdateUser = $conn->prepare($sqlUpdateUser);
+        $stmtUpdateUser->bindParam(1, $nombre, PDO::PARAM_STR);
+        $stmtUpdateUser->bindParam(2, $numero, PDO::PARAM_STR);
+        $stmtUpdateUser->bindParam(3, $correo, PDO::PARAM_INT);
+        $stmtUpdateUser->bindParam(4, $direccion, PDO::PARAM_STR);
+        $stmtUpdateUser->bindParam(5, $rol, PDO::PARAM_INT);
+        $stmtUpdateUser->bindParam(6, $id, PDO::PARAM_INT);
+        $stmtUpdateUser->execute();
+
+        $_SESSION['crear'] = 'si';
+        // Cerrar la conexión PDO
+        $conn = null;
+
+        // Redirigir a la página principal
+        header('Location: ../php/homeAd.php');
+        exit();
+} catch (PDOException $e) {
+    // Manejar errores de PDO
+    echo "Error: " . $e->getMessage() . "<br>";
+    $_SESSION['crear'] = 'no';
+    header('Location: ../php/homeAd.php');
+    exit();
+}
 ?>

@@ -3,9 +3,9 @@ session_start();
 include("./connection.php");
 
 // Obtener datos del formulario
-$salaS = mysqli_real_escape_string($conn, $_POST['salaS']);
-$nom = mysqli_real_escape_string($conn, $_POST['nom']);
-$estado = mysqli_real_escape_string($conn, $_POST['estado']);
+$salaS = $_POST['salaS'];
+$nom = $_POST['nom'];
+$estado = $_POST['estado'];
 
 // Dividir la cadena en dos partes
 $partes = explode(" ", $salaS);
@@ -23,18 +23,24 @@ if ($nombre == 'Terraza') {
     $id_tipo_sala = 3;
 }
 
-// Preparar y ejecutar la consulta SQL
-$stmt = mysqli_stmt_init($conn);
-$sqlinsert = "INSERT INTO tbl_salas (nombre_sala, habilitado, id_tipos_sala) VALUES (?, ?, ?)";
-mysqli_stmt_prepare($stmt, $sqlinsert);
-mysqli_stmt_bind_param($stmt, "sii", $numero, $estado, $id_tipo_sala);
-mysqli_stmt_execute($stmt);
+try {
+    // Preparar y ejecutar la consulta SQL con la conexión existente
+    $sqlinsert = "INSERT INTO tbl_salas (nombre_sala, habilitado, id_tipos_sala) VALUES (?, ?, ?)";
+    $stmt = $conn->prepare($sqlinsert);
+    $stmt->bindParam(1, $numero, PDO::PARAM_STR);
+    $stmt->bindParam(2, $estado, PDO::PARAM_INT);
+    $stmt->bindParam(3, $id_tipo_sala, PDO::PARAM_INT);
+    $stmt->execute();
 
-// Manejar resultados y cerrar recursos
-$_SESSION['crear'] = 'si';
-mysqli_stmt_close($stmt);
-mysqli_close($conn);
+    // Manejar resultados
+    $_SESSION['crear'] = 'si';
 
+} catch (PDOException $e) {
+    // Manejar errores de PDO
+    echo "Error: " . $e->getMessage();
+}
+
+// No es necesario cerrar la conexión PDO aquí, ya que la conexión es mantenida por el script connection.php
 // Redirigir a la página principal
 header('Location: ../php/homeAd.php');
 exit();

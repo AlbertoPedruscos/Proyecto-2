@@ -8,20 +8,17 @@ if (!isset($_SESSION["user"])) {
 }
 
 try {
-    include("../connection.php");
-    $tipo_sala = mysqli_real_escape_string($conn, $_GET['tipo_sala']);
-
+    $tipo_sala = $_GET['tipo_sala'];
     $sql = "SELECT DISTINCT sillas FROM tbl_tipos_salas tsa 
             INNER JOIN tbl_salas sa ON tsa.id_tipos = sa.id_tipos_sala 
             INNER JOIN tbl_mesas me ON sa.id_sala = me.id_sala_mesa 
             INNER JOIN tbl_estado esta ON me.id_estado_mesa = esta.id_estado
             WHERE nombre_tipos = ? ORDER BY sillas ASC";
 
-    $stmt = mysqli_stmt_init($conn);
-    mysqli_stmt_prepare($stmt, $sql);
-    mysqli_stmt_bind_param($stmt, "s", $tipo_sala);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(1, $tipo_sala, PDO::PARAM_STR);
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // Valor seleccionado que se obtiene de $_GET['num_sillas_seleccionadas']
     $num_sillas_seleccionadas = isset($_GET['num_sillas_seleccionadas']) ? $_GET['num_sillas_seleccionadas'] : '';
@@ -36,8 +33,9 @@ try {
 
     echo $options;
 
-    mysqli_stmt_close($stmt);
-    mysqli_close($conn);
+    // Cierra la conexión PDO
+    $conn = null;
+
 } catch (Exception $e) {
     echo "Error: " . $e->getMessage() . "<br>";
 }

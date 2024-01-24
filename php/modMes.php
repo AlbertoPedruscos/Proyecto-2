@@ -2,18 +2,25 @@
 include './connection.php';
 
 // Recibe la variable enviada por AJAX
-$id = mysqli_real_escape_string($conn, $_POST['idMes']);
+$id = $_POST['idMes'];
 
-$stmt = mysqli_stmt_init($conn);
-$sqlDel = "UPDATE tbl_mesas SET id_estado_mesa = 
+try {
+    // Preparar y ejecutar la consulta SQL con la conexión existente
+    $sqlDel = "UPDATE tbl_mesas SET id_estado_mesa = 
             CASE 
-                WHEN id_estado_mesa = 2 THEN 3 
-                WHEN id_estado_mesa = 3 THEN 2 
+                WHEN id_estado_mesa = 2 THEN 4 
+                WHEN id_estado_mesa = 3 THEN 4 
+                WHEN id_estado_mesa = 4 THEN 2 
             END 
             WHERE id_mesa = ?";
-mysqli_stmt_prepare($stmt, $sqlDel);
-mysqli_stmt_bind_param($stmt, "i", $id);
-mysqli_stmt_execute($stmt);
-mysqli_stmt_close($stmt);
-mysqli_close($conn);
+    $stmt = $conn->prepare($sqlDel);
+    $stmt->bindParam(1, $id, PDO::PARAM_INT);
+    $stmt->execute();
+
+} catch (PDOException $e) {
+    // Manejar errores de PDO
+    echo "Error: " . $e->getMessage();
+}
+
+// No es necesario cerrar la conexión PDO aquí, ya que la conexión es mantenida por el script connection.php
 ?>
